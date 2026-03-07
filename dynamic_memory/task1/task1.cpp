@@ -1,6 +1,6 @@
 #include <iostream>
 #include <cassert>
-#include "task1.hpp"
+#include "task1_template.hpp"
 
 // A "Mock" shape to track if the destructor is actually called
 class TestShape : public Shape {

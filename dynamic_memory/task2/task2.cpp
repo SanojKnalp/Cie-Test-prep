@@ -1,6 +1,6 @@
 #include <iostream>
 #include <cassert>
-#include "task2.hpp"
+#include "task2_template.hpp"
 
 int main() {
     int r = 3, c = 4;
