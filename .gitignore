@@ -1,0 +1,76 @@
+# Projects
+*.cbp
+*.user
+*.cproject
+*.cproject
+*CMakeCache.txt*
+*.cmake
+.vscode/*
+*.vscode/
+*.idea/
+
+# Prerequisites
+*.d
+
+# Compiled Object files
+*.slo
+*.lo
+*.o
+*.obj
+
+# Precompiled Headers
+*.gch
+*.pch
+
+# Compiled Dynamic libraries
+*.so
+*.dylib
+*.dll
+
+# Fortran module files
+*.mod
+*.smod
+
+# Compiled Static libraries
+*.lai
+*.la
+*.a
+*.lib
+
+# Executables
+*.exe
+*.out
+*.app
+
+# Images / post-processing
+*.vtk
+*.pvd
+*.vtu
+*.pvtu
+*.eps
+
+# data
+*.dat
+
+# meshes
+*.msh
+
+# Ignore all build file
+build/*
+cmake-build-debug/*
+cmake-build-release/*
+.cache/*
+
+
+# Ignore clion recommandation file
+.idea/*
+
+# Doc
+doc/build/*
+contrib/utilities/programs/*
+contrib/postprocessing/build
+contrib/postprocessing/dist
+contrib/postprocessing/lethe_pyvista_tools.egg-info
+*__pycache__
+doc/doxygen/html/
+doc/doxygen/DoxygenWarningLog.txt

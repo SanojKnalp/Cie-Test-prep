@@ -1,4 +1,4 @@
-// Scene.h
+// task1.hpp
 class Shape {
 public:
     virtual ~Shape() {} // Why is this virtual?
