@@ -1,7 +1,11 @@
 //Fix the bug
 #include <iostream>
+
 int* createValues() {
-    int localArr[3] = {1, 2, 3};
+    int* localArr = new int[3];
+    localArr[0] = 1;
+    localArr[1] = 2;
+    localArr[2] = 3;
     return localArr; 
 }
 
