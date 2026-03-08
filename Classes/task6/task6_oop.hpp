@@ -11,7 +11,7 @@ public:
 
     // 1. Overload + operator (Member function)
     Vector2D operator+(const Vector2D& other) const {
-        // TODO
+        return Vector2D(coords[0]+other.coords[0], coords[1]+other.coords[1]);
     }
 
     // 2. Overload Subscript [] (Lecture 6, p. 9)

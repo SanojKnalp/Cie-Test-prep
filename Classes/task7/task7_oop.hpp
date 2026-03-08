@@ -10,8 +10,10 @@
 class Shape {
 public:
     // TODO: Add a virtual destructor
+    virtual ~Shape() = default;
     
     // TODO: Add a pure virtual function 'double computeArea() const'
+    virtual double computeArea() const = 0;
 };
 
 // 2. Concrete Class requiring Rule of 5
@@ -21,8 +23,10 @@ private:
     size_t numVertices;
     
     // TODO: Declare a static integer 'totalPolygons' to track active instances
+    static int totalPolygons;
     
     // TODO: Declare a mutable integer 'areaComputations' 
+    mutable int areaComputations;
 
 public:
     // Constructor

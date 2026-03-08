@@ -1,5 +1,5 @@
 #include <cassert>
-#include "task6_oop.hpp"
+#include "task6_oop_template.hpp"
 
 void run_operator_test() {
     Vector2D v1(1.0, 2.0);
@@ -12,4 +12,10 @@ void run_operator_test() {
     assert(v3[0] == 10.0);
 
     std::cout << "Task 4: Operator Overloading Passed!" << std::endl;
+}
+
+int main()
+{
+    run_operator_test();
+    return 0;
 }
