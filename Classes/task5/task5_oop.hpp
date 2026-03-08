@@ -10,15 +10,18 @@ private:
 public:
     ObjectTracker(int i) : id(i), accessCount(0) {
         // TODO: Increment globalCount
+        globalCount++;
     }
 
     ~ObjectTracker() {
         // TODO: Decrement globalCount
+        globalCount--;
     }
 
     // Const function that modifies a mutable member
     int getId() const {
         // TODO: Increment accessCount and return id
+        accessCount++;
         return id;
     }
 

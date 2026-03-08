@@ -25,7 +25,11 @@ public:
     }
 
     double getTotalArea() const {
-        // TODO: Iterate and sum areas polymorphically
-        return 0.0;
+        double area = 0.0;
+        for (int i=0; i< elements.size(); i++)
+        {
+            area+= elements[i]->area();
+        }
+        return area;
     }
 };

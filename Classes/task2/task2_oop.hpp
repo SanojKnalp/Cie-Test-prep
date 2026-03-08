@@ -35,23 +35,41 @@ public:
     // 1. Destructor
     ~System() {
         // TODO: Delete each particle AND the list itself
+        for(int i=0; i<count; i++)
+        {
+            delete list[i];
+        }
+        delete[] list;
     }
 
     // 2. Copy Constructor (Deep Copy)
-    System(const System& other) : capacity(other.capacity), count(other.count) {
+    System(const System& other) : capacity(other.capacity), count(0) {
         list = new Particle*[capacity];
-        for (int i = 0; i < count; ++i) {
+        for (int i = 0; i < other.count; ++i) {
             // For the exam: Assume all particles are HeavyParticles.
             // Create a NEW HeavyParticle based on the old one's data.
             // Hint: You'd need a getter for 'mass' or a clone() method, 
             // but for this test, just copy the logic.
+            addHeavy(other.list[i]->getId(),(other.list[i]->getWeight()/9.81));
         }
     }
 
     // 3. Assignment Operator
     System& operator=(const System& other) {
         if (this != &other) {
-            // TODO: Delete old memory, allocate new, copy data
+            // TODO: Delete old memory, allocate new, deep copy data
+            for(int i=0; i<count; i++)
+            {
+                delete list[i];
+            }
+            delete[] list;
+            count = 0;
+            capacity = other.capacity;
+            list = new Particle*[capacity];
+            for(int i=0; i<other.count; i++)
+            {
+                addHeavy(other.list[i]->getId(),(other.list[i]->getWeight()/9.81));
+            }
         }
         return *this;
     }

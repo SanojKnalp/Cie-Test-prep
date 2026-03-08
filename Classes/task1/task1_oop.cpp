@@ -1,5 +1,5 @@
 #include <iostream>
-#include "task1_oop.hpp"
+#include "task1_oop_template.hpp"
 void analyzeScene(Scene s) {
     std::cout << "Area: " << s.getTotalArea() << " ";
 }

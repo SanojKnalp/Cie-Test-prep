@@ -1,5 +1,5 @@
 #include <cassert>
-#include "task5_oop.hpp"
+#include "task5_oop_template.hpp"
 #include <iostream>
 void run_tracker_test() {
     {
@@ -15,4 +15,10 @@ void run_tracker_test() {
     assert(ObjectTracker::getGlobalCount() == 0);
     
     std::cout << "Task 3: Static/Mutable/Const Correctness Passed!" << std::endl;
+}
+
+int main()
+{
+    run_tracker_test();
+    return 0;
 }

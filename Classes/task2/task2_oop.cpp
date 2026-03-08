@@ -1,40 +1,63 @@
 #include <iostream>
 #include <cmath>
-#include "task2_oop.hpp"
-// Assuming the classes above are defined here...
+#include <vector>
+#include "task2_oop_template.hpp"
 
-bool testPrediction() {
-    // --- YOUR PREDICTION ---
-    // What is the value of 'result' after the operations below?
-    // Enter your prediction for (Total Weight of s1) + (Total Weight of s2)
-    double YOUR_PREDICTION = 0.0; 
+// Add this to your test file to specifically target Assignment Operator logic
+bool testAssignmentOperator() {
+    System s1(5);
+    s1.addHeavy(1, 10.0); // Weight: 98.1
+    s1.addHeavy(2, 20.0); // Weight: 196.2
 
-    System s1(10);
-    s1.addHeavy(1, 1.0); // Weight = 1.0 * 9.81 = 9.81
-    s1.addHeavy(2, 2.0); // Weight = 2.0 * 9.81 = 19.62
+    System s2(5);
+    s2.addHeavy(99, 5.0); // Existing data that SHOULD be deleted by s2 = s1
+
+    // --- THE TEST: Assignment Operator ---
+    s2 = s1; 
+
+    // 1. Check for Shallow Copy (Shared Memory)
+    // If your code uses 'list[i] = other.list[i]', both systems point to the same Particle.
+    // In a deep copy, they should have DIFFERENT memory addresses.
+    // We can't easily check addresses without getters, so we check behavior:
     
-    // Triggering the Copy Constructor
-    System s2 = s1; 
-    
-    // Modify the original s1
-    s1.addHeavy(3, 3.0); // Weight = 3.0 * 9.81 = 29.43
+    s1.addHeavy(3, 30.0); // Add to s1 only. 
 
-    // If Deep Copy works:
-    // s1 weight = 9.81 + 19.62 + 29.43 = 58.86
-    // s2 weight = 9.81 + 19.62 = 29.43
-    
-    double result = s1.calcTotalWeight() + s2.calcTotalWeight();
+    double s1_weight = s1.calcTotalWeight(); // Should be 98.1 + 196.2 + 294.3 = 588.6
+    double s2_weight = s2.calcTotalWeight(); // Should be 98.1 + 196.2 = 294.3
 
-    // Use a small epsilon for double comparison
-    return (std::abs(result - YOUR_PREDICTION) < 0.01);
+    // If s2_weight is 588.6 or 0, your assignment operator failed.
+    if (std::abs(s2_weight - 294.3) > 0.01) {
+        std::cout << "FAIL: s2 was affected by changes to s1 (Shallow Copy detected)!" << std::endl;
+        return false;
+    }
+
+    // 2. The "Double Free" Trap
+    // We force s1 to be destroyed. If s2 was sharing pointers with s1,
+    // s2's pointers are now "dangling" (pointing to deleted memory).
+    {
+        System s3(2);
+        s3.addHeavy(10, 1.0);
+        s1 = s3; // This triggers the destructor logic for the old s1 particles
+    } 
+
+    // If s2 was sharing memory with the old s1, this call will likely 
+    // crash the program or return garbage values.
+    try {
+        double final_check = s2.calcTotalWeight();
+        if (std::abs(final_check - 294.3) > 0.01) throw std::runtime_error("Garbage data");
+    } catch (...) {
+        std::cout << "FAIL: s2 contains dangling pointers!" << std::endl;
+        return false;
+    }
+
+    return true;
 }
 
 int main() {
-    if (testPrediction()) {
-        std::cout << "EXAM READY: Prediction matched the polymorphic deep-copy result!" << std::endl;
+    if (testAssignmentOperator()) {
+        std::cout << "SUCCESS: Assignment Operator is robust!" << std::endl;
     } else {
-        std::cout << "NOT QUITE: Your prediction or your Rule of Three implementation is wrong." << std::endl;
-        std::cout << "Check if s2.calcTotalWeight() was affected by s1.addHeavy()." << std::endl;
+        std::cout << "CRITICAL FAILURE: Your Assignment Operator is performing a shallow copy." << std::endl;
     }
     return 0;
 }
