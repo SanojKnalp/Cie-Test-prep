@@ -85,3 +85,15 @@ public:
 };
 
 #endif
+
+// BUG 1: Something is missing here that will cause a memory leak when 
+// deleted via a base class pointer.
+// BUG 2: Const correctness. The getAverage() function needs to increment this, 
+// but the compiler throws an error.
+// BUG 3: Rule of 5 critical omission here. What if a = a?
+// BUG 4: Ownership was transferred, but the source was not neutralized.
+// This will cause a double-free crash!
+// BUG 5: Operator Overloading. This returns a reference to a local variable!
+ // BUG 6: Const correctness. This getter shouldn't modify the object, 
+// but it's missing the keyword that guarantees it.
+// BUG 7: Related to Bug 2. Fix Bug 2 to make this compile.
