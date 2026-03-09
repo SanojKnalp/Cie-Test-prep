@@ -1,6 +1,6 @@
 #include <cassert>
 #include <iostream>
-#include "task7_oop.hpp"
+#include "task7_oop_template.hpp"
 
 int main() {
     // 1. Test Static Tracking & Creation
