@@ -42,9 +42,8 @@ public:
         /* YOUR CODE HERE */
     }
 
-    // TODO 4: Use a manual iterator (std::vector<...>::const_iterator)
+    // TODO 4: Use an iterator
     // to loop through the vector and concatenate all animal sounds.
-    // CONSTRAINT: Do NOT use a range-based for loop (for(auto x : ...)).
     std::string performConcert() const {
         std::string concert = "";
         

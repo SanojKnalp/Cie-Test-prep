@@ -1,6 +1,6 @@
 #include <iostream>
 #include <cassert>
-#include "task2_std.hpp"
+#include "task2_std_template.hpp"
 
 int main() {
     Zoo myZoo;

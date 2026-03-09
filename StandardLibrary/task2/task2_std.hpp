@@ -28,31 +28,30 @@ private:
     // TODO 1: Declare a private std::vector that stores 
     // shared_ptr objects of type Animal.
     /* YOUR CODE HERE */
+    std::vector<std::shared_ptr<Animal>> animals;
 
 public:
     // TODO 2: Use std::make_shared to create a Dog and 
     // add it to your vector.
     void addDog() {
-        /* YOUR CODE HERE */
+        animals.emplace_back(std::make_shared<Dog>());
     }
 
     // TODO 3: Use std::make_shared to create a Cat and 
     // add it to your vector.
     void addCat() {
-        /* YOUR CODE HERE */
+       animals.emplace_back(std::make_shared<Cat>());
     }
 
-    // TODO 4: Use a manual iterator (std::vector<...>::const_iterator)
+    // TODO 4: Use an iterator
     // to loop through the vector and concatenate all animal sounds.
-    // CONSTRAINT: Do NOT use a range-based for loop (for(auto x : ...)).
     std::string performConcert() const {
         std::string concert = "";
         
-        /* YOUR CODE HERE: 
-           1. Get the begin iterator
-           2. Loop until the end iterator
-           3. Access the animal's speak() method via the iterator
-        */
+        for(const auto& ansound : animals)
+        {
+            concert.append(ansound->speak());
+        }
         
         return concert;
     }
@@ -60,7 +59,7 @@ public:
     // Returns number of animals in the zoo
     size_t count() const { 
         /* YOUR CODE HERE */ 
-        return 0; 
+        return animals.size(); 
     }
 };
 
