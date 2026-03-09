@@ -1,7 +1,7 @@
 #include <iostream>
 #include <vector>
 #include <cassert>
-#include "task1_std.hpp"
+#include "task1_std_template.hpp"
 
 int main() {
     std::vector<int> data = {1, 2, 3, 4, 5};

@@ -2,6 +2,7 @@
 #define DATAFILTER_HPP
 
 #include <vector>
+#include <algorithm>
 #include <iostream>
 
 class DataFilter {
@@ -13,7 +14,13 @@ public:
      * - If a value is ODD, leave it alone.
      */
     static void process(std::vector<int>& vec, int factor) {
-        /* YOUR CODE HERE */
+        for(int i=0; i<vec.size(); i++)
+        {
+            if((i+1)%2==0)
+            {
+                vec[i] = vec[i]*factor;
+            }
+        }
     }
 
     /**
@@ -24,6 +31,15 @@ public:
      */
     static std::vector<int>::iterator findFirstAbove(std::vector<int>& vec, int threshold) {
         /* YOUR CODE HERE */
+        
+        std::vector<int>::iterator iter;
+        for(const auto& vecelem : vec)
+        {
+            if(vecelem>threshold)
+            {
+                return iter = std::find(std::begin(vec), std::end(vec), vecelem);
+            }
+        }
         return vec.end(); // Default return, change as needed
     }
 };
