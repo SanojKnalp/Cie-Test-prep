@@ -1,6 +1,6 @@
 #include <iostream>
 #include <cassert>
-#include "task5_std.hpp"
+#include "task5_std_template.hpp"
 
 // Initialize static tracker
 int Polynomial::poly_count = 0;

@@ -1,6 +1,6 @@
 #include <iostream>
 #include <cassert>
-#include "task6_std.hpp"
+#include "task6_std_template.hpp"
 
 int main() {
     // 1. Test Compile-Time Type Traits

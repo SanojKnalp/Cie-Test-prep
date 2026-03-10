@@ -11,13 +11,16 @@
 // TODO: Implement 'IsPointer' trait. The base template should have a static const bool value = false;
 template <typename T>
 struct IsPointer {
-    /* YOUR CODE HERE */
+    static const bool value = false;
 };
 
 // TODO: Implement the partial specialization of 'IsPointer' for pointer types (T*).
 // It should have a static const bool value = true; [cite: 1886]
 /* YOUR CODE HERE */
-
+template <typename T>
+struct IsPointer<T*> {
+    static const bool value = true;
+};
 
 // 2. Abstract Base Class for Runtime Polymorphism [cite: 734]
 class INode {
@@ -49,7 +52,21 @@ public:
 // serialize() should return "TRUE" if true, and "FALSE" if false.
 template <>
 class DataNode<bool> : public INode {
-    /* YOUR CODE HERE */
+    private:
+    bool data;
+    public: 
+    DataNode(bool val) : data(val)
+    {
+        // Compile-time check: Prevent raw pointers from using the general template [cite: 1889, 1906]
+        static_assert(!IsPointer<bool>::value, "Pointers must use the specialized template!");
+    }
+    std::string serialize() const override {
+        if(data)
+        {
+            return std::string("TRUE");
+        }
+        return std::string("FALSE");
+    }
 };
 
 // 5. Partial Template Specialization (for pointers) [cite: 1829, 1838]
@@ -59,6 +76,27 @@ class DataNode<bool> : public INode {
 template <typename T>
 class DataNode<T*> : public INode {
     /* YOUR CODE HERE */
+    private:
+    T* data;
+    public:
+    DataNode(T* val) : data(val)
+    {
+
+    }
+
+    std::string serialize() const override {
+        std::ostringstream oss;
+        
+        // If T is a char (meaning T* is a string), don't dereference it.
+        // Otherwise, dereference to get the value (like the 99 from your int*).
+        if constexpr (std::is_same_v<T, char> || std::is_same_v<T, const char>) {
+            oss << data; 
+        } else {
+            oss << *data;
+        }
+        
+        return oss.str();
+    }
 };
 
 
@@ -79,7 +117,7 @@ public:
     // TODO: Implement the base case for push_all (takes a single argument of type T).
     template <typename T>
     void push_all(T first) {
-        /* YOUR CODE HERE */
+        push(first);
     }
 
     // 8. Variadic Templates (Recursive Step) [cite: 1860]
@@ -87,7 +125,8 @@ public:
     // It should push 'first', then recursively call push_all with 'rest...'.
     template <typename T, typename... Args>
     void push_all(T first, Args... rest) {
-        /* YOUR CODE HERE */
+        push(first);         // Handle the first argument
+        push_all(rest...);   // Unpack and recursively handle the rest
     }
 
     // Returns a combined string of all serialized nodes
