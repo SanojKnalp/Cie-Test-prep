@@ -108,6 +108,13 @@ public:
             degree_ = rhs.degree_;
             coeffs_ = newdeg.coeffs_;
         }
+        else
+        {
+            for(int i=0; i<rhs.degree_+1; i++)
+            {
+                coeffs_[i]+=rhs.coeffs_[i];
+            }
+        }
         return *this;
     }
 
