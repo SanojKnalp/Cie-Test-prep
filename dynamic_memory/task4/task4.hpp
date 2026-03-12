@@ -13,29 +13,6 @@ public:
         delete[] data;
         std::cout << "Base Destructed\n";
     }
-
-    BaseBuffer(const BaseBuffer& other)
-    {
-        data = new int(other.size);
-        for(int i=0; i<other.size; i++)
-        {
-            data[i] = other.data[i];
-        }
-        std::cout << "Base Deep Copied\n";
-    }
-    BaseBuffer& operator=(const BaseBuffer& other)
-    {
-        if(this != &other)
-        {
-            delete[] data;
-            data = new int(other.size);
-            for(int i=0; i<other.size; i++)
-            {
-                data[i] = other.data[i];
-            }
-        }
-        return *this;
-    }
 };
 
 class DerivedBuffer : public BaseBuffer {
@@ -52,6 +29,6 @@ public:
     }
 };
 
-void processBuffer(BaseBuffer b) {
+void processBuffer(BaseBuffer& b) {
     std::cout << "Processing...\n";
 }
